@@ -3,6 +3,8 @@ package com.ipai.uptake.codeassisgnment;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.ipai.uptake.codeassisgnment.common.CompositeUIElement;
+
 public class UptakeHomePage extends CompositeUIElement {
 
 	public static final String TITLE = "Home | Uptake";

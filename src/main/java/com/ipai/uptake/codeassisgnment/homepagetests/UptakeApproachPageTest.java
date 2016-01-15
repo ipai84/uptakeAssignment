@@ -33,7 +33,7 @@ public class UptakeApproachPageTest {
 	}
 
 	@Test
-	public void basicSmokeandNavigationToApproachPageTest() {
+	public void basicSmokeandNavigationToHomePageTest() {
 
 		Assert.assertTrue(" Approach Page header has errors", approachPage.checkUptakeHomePageHeader());
 

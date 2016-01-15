@@ -1,4 +1,4 @@
-package com.ipai.uptake.codeassisgnment;
+package com.ipai.uptake.codeassisgnment.common;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -14,10 +14,16 @@ import org.openqa.selenium.WebElement;
 
 public class CompositeUIElement {
 
-	protected static WebDriver pageDriver = null;
+	protected WebDriver pageDriver = null;
 
+	// Constructor invoked by non Page composite UI elements
+	public CompositeUIElement(WebDriver driverObj) {
+		pageDriver = driverObj;
+	}
+
+	// Constructor invoked by Page composite UI elements
 	public CompositeUIElement(WebDriver driverObj, String title, String url) {
-		CompositeUIElement.pageDriver = driverObj;
+		pageDriver = driverObj;
 
 		if (!StringUtils.equals(pageDriver.getTitle(), title)) {
 			throw new IllegalStateException("This is not the " + title + " Page, The title found for this page is "
@@ -29,7 +35,7 @@ public class CompositeUIElement {
 		}
 	}
 
-	public static boolean checkifElementPresent(By locator, String error) {
+	public boolean checkifElementPresent(By locator, String error) {
 		boolean isTestCasePassed = true;
 		WebElement webElement = null;
 
@@ -47,7 +53,7 @@ public class CompositeUIElement {
 		return isTestCasePassed;
 	}
 
-	public static boolean checkifElementNotPresent(By locator, String error) {
+	public boolean checkifElementNotPresent(By locator, String error) {
 		boolean isTestCasePassed = true;
 		WebElement webElement = null;
 
@@ -65,7 +71,7 @@ public class CompositeUIElement {
 		return isTestCasePassed;
 	}
 
-	public static boolean checkURLHTTPStatus(String expectedURL) {
+	public boolean checkURLHTTPStatus(String expectedURL) {
 		boolean isTestCasePassed = false;
 
 		try {
@@ -100,7 +106,7 @@ public class CompositeUIElement {
 		return isTestCasePassed;
 	}
 
-	public static boolean pageLoadPostElementClickStatus(By locator, String expectedURL) {
+	public boolean pageLoadPostElementClickStatus(By locator, String expectedURL) {
 		boolean isTestCasePassed = true;
 		WebElement webElement = null;
 
