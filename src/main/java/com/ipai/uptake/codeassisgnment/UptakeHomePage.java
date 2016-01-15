@@ -25,4 +25,16 @@ public class UptakeHomePage extends CompositeUIElement {
 	public boolean checkUptakeHomePageFooter() {
 		return uptakeSitePageFooter.checkAllFooterElemnts(TITLE);
 	}
+
+	public boolean checkOurPlatformComponentPresent() {
+		return checkifElementPresent(OUR_PLATFORM_TEXT,
+				"The UI element for our platform text was not found in the page " + TITLE);
+	}
+
+	public UptakeApproachPage clickApproachfromHeaderLink() {
+		if (pageLoadPostElementClickStatus(uptakeSitePageHeader.HEADER_APPROACH_LINK, UptakeApproachPage.CURRENT_URL))
+			return new UptakeApproachPage(this.pageDriver);
+
+		return null;
+	}
 }

@@ -1,27 +1,40 @@
 package com.ipai.uptake.codeassisgnment;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UptakeApproachPage {
+public class UptakeApproachPage extends CompositeUIElement {
 
 	public static final String TITLE = "Approach | Uptake";
 	public static final By HOW_WE__BUILD = By.xpath("//div[4]/div/main/div[1]/div/div/h2");
 	public static final String CURRENT_URL = "http://uptake.com/approach/";
-	private final WebDriver pageDriver;
+	public final CommonPageComponentsHeader uptakeSitePageHeader;
+	public final CommonPageComponentsFooter uptakeSitePageFooter;
 
-	public UptakeApproachPage(WebDriver driver) {
+	public UptakeApproachPage(final WebDriver driverObj) {
+		super(driverObj, TITLE, CURRENT_URL);
+		uptakeSitePageHeader = new CommonPageComponentsHeader(pageDriver);
+		uptakeSitePageFooter = new CommonPageComponentsFooter(pageDriver);
+	}
 
-		this.pageDriver = driver;
+	public boolean checkUptakeHomePageHeader() {
+		return uptakeSitePageHeader.checkAllHeaderElemnts(TITLE);
+	}
 
-		if (!StringUtils.equals(pageDriver.getTitle(), TITLE)) {
-			throw new IllegalStateException("This is not the Approach Page");
-		}
-		if (!StringUtils.equals(pageDriver.getCurrentUrl(), CURRENT_URL)) {
-			throw new IllegalStateException("This is not the Approach Page, The URL post page load is "
-					+ pageDriver.getCurrentUrl());
-		}
+	public boolean checkUptakeHomePageFooter() {
+		return uptakeSitePageFooter.checkAllFooterElemnts(TITLE);
+	}
+
+	public boolean checkHowWeBuildComponentPresent() {
+		return checkifElementPresent(HOW_WE__BUILD, "The UI element for How We Build.. text was not found in the page "
+				+ TITLE);
+	}
+
+	public UptakeHomePage clickUptakeLogofromHeaderLink() {
+		if (pageLoadPostElementClickStatus(uptakeSitePageHeader.HEADER_UPTAKE_LOGO, UptakeHomePage.CURRENT_URL))
+			return new UptakeHomePage(this.pageDriver);
+
+		return null;
 	}
 
 }

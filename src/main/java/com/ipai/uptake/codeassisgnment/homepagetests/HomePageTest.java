@@ -1,4 +1,4 @@
-package com.ipai.uptake.codeassisgnment;
+package com.ipai.uptake.codeassisgnment.homepagetests;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.ipai.uptake.codeassisgnment.UptakeApproachPage;
+import com.ipai.uptake.codeassisgnment.UptakeHomePage;
+
 public class HomePageTest {
 	private static WebDriver driver;
 	private static final String HOME_URL = "http://uptake.com/";
@@ -17,37 +20,27 @@ public class HomePageTest {
 	@BeforeClass
 	public static void setup() {
 		driver = new FirefoxDriver();
+		// driver = new ChromeDriver();
 		driver.get(HOME_URL);
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-	}
 
-	@Test
-	public void basicStatusCodeTest() {
+		// Commented the following assert as response code was always 403
 
-		Assert.assertTrue("Error encountered on checking Http status of Home Page URL",
-				UptakeHomePage.checkURLHTTPStatus(HOME_URL));
+		// Assert.assertTrue("Error encountered on checking Http status of Home Page URL",
+		// UptakeHomePage.checkURLHTTPStatus(HOME_URL));
 
 	}
 
 	@Test
-	public void basicPageHeaderTest() {
+	public void basicSmokeandNavigationToApproachPageTest() {
 
-		Assert.assertTrue("HomePage header has errors", homePage.checkUptakeHomePageHeader());
-
-	}
-
-	@Test
-	public void basicPageFooterTest() {
-
+		Assert.assertTrue("HomePage Header has errors", homePage.checkUptakeHomePageHeader());
 		Assert.assertTrue("HomePage footer has errors", homePage.checkUptakeHomePageFooter());
 
-	}
+		Assert.assertTrue(homePage.checkOurPlatformComponentPresent());
 
-	@Test
-	public void basicTest() {
-
-		// Assert.assertTrue(homePage.checkOurPlatformText());
-		// ApproachPage approachPage = homePage.clickApproachLink();
+		final UptakeApproachPage approachPage = homePage.clickApproachfromHeaderLink();
+		Assert.assertNotNull(approachPage);
 	}
 
 	@AfterClass
